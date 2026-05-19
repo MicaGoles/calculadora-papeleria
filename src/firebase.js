@@ -9,12 +9,12 @@ import { getFirestore, doc, setDoc, getDoc, onSnapshot } from "firebase/firestor
 import { getAuth, signInWithPopup, GoogleAuthProvider, onAuthStateChanged, signOut } from "firebase/auth";
 
 const firebaseConfig = {
-  apiKey:            "PEGAR_AQUI_TU_apiKey",
-  authDomain:        "PEGAR_AQUI_TU_authDomain",
-  projectId:         "PEGAR_AQUI_TU_projectId",
-  storageBucket:     "PEGAR_AQUI_TU_storageBucket",
-  messagingSenderId: "PEGAR_AQUI_TU_messagingSenderId",
-  appId:             "PEGAR_AQUI_TU_appId",
+  apiKey:            "AIzaSyCwDG7UMEx0rLGiz5f2Ru0Z9AJR2PGEtGE",
+  authDomain:        "calculadora-papeleria-rincon.firebaseapp.com",
+  projectId:         "calculadora-papeleria-rincon",
+  storageBucket:     "calculadora-papeleria-rincon.firebasestorage.app",
+  messagingSenderId: "229846430633",
+  appId:             "1:229846430633:web:a8d4f7d50077bac9460ab8",
 };
 
 const app  = initializeApp(firebaseConfig);
