@@ -2131,7 +2131,7 @@ function Canales({ state }) {
 // MÓDULO: Exportar / Reportes
 // ════════════════════════════════════════════════════════════════════════════
 function Exportar({ state }) {
-  const { insumos, productos, kits, gastosFijos, maquinas, config, calcularCostoProducto, calcularKit, preciosPorCanal, costoMaquinasMensual, totalGastosFijos } = state;
+  const { insumos, setInsumos, productos, setProductos, kits, setKits, gastosFijos, setGastosFijos, maquinas, setMaquinas, config, setConfig, calcularCostoProducto, calcularKit, preciosPorCanal, costoMaquinasMensual, totalGastosFijos } = state;
   const [exportando, setExportando] = useState(false);
   const fmt0 = n => new Intl.NumberFormat("es-AR",{style:"currency",currency:"ARS",maximumFractionDigits:0}).format(n||0);
 
@@ -2362,7 +2362,7 @@ function Exportar({ state }) {
         <div className="card-body">
           <div style={{display:"flex",gap:12,flexWrap:"wrap"}}>
             <button className="btn btn-secondary" onClick={()=>{
-              const data = JSON.stringify(loadState(), null, 2);
+              const data = JSON.stringify({ insumos, productos, kits, gastosFijos, maquinas, config }, null, 2);
               const blob = new Blob([data],{type:"application/json"});
               const url = URL.createObjectURL(blob);
               const a = document.createElement("a"); a.href=url; a.download=`papeleria_backup_${new Date().toISOString().slice(0,10)}.json`; a.click();
@@ -2379,8 +2379,12 @@ function Exportar({ state }) {
                   try {
                     const data = JSON.parse(ev.target.result);
                     if (window.confirm("¿Restaurar los datos del backup? Se reemplazará todo lo actual.")) {
-                      saveState(data);
-                      window.location.reload();
+                      if (data.insumos) setInsumos(data.insumos);
+                      if (data.productos) setProductos(data.productos);
+                      if (data.kits) setKits(data.kits);
+                      if (data.gastosFijos) setGastosFijos(data.gastosFijos);
+                      if (data.maquinas) setMaquinas(data.maquinas);
+                      if (data.config) setConfig(c=>({...c,...data.config}));
                     }
                   } catch { alert("Archivo inválido"); }
                 };
