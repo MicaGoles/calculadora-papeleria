@@ -1,0 +1,12 @@
+// firestore.rules
+// Copiá este contenido en Firebase Console → Firestore → Rules
+// Garantiza que SOLO vos podés leer y escribir tus propios datos.
+
+rules_version = '2';
+service cloud.firestore {
+  match /databases/{database}/documents {
+    match /usuarios/{userId}/datos/{document} {
+      allow read, write: if request.auth != null && request.auth.uid == userId;
+    }
+  }
+}
