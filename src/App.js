@@ -583,7 +583,6 @@ function useAppState() {
   const [maquinas, setMaquinas] = useState(INIT_MAQUINAS);
   const [gastosFijos, setGastosFijos] = useState(INIT_GASTOS);
   const [config, setConfig] = useState(INIT_CONFIG);
-  const datosRef = useRef(null);
   const saveTimer = useRef(null);
 
   // ── Login / logout ──────────────────────────────────────────────────────
@@ -714,7 +713,7 @@ function useAppState() {
 // MÓDULO: Dashboard
 // ════════════════════════════════════════════════════════════════════════════
 function Dashboard({ state }) {
-  const { insumos, productos, maquinas, gastosFijos, costoMaquinasMensual, totalGastosFijos, costoHora1, costoHora2, stocksLow } = state;
+  const { insumos, productos, gastosFijos, costoMaquinasMensual, totalGastosFijos, costoHora1, stocksLow } = state;
   const alertasStock = insumos.filter(i => i.stock <= i.stockMin);
 
   return (
@@ -1232,7 +1231,6 @@ function Productos({ state }) {
               <tbody>
                 {filtered.map(p=>{
                   const c = calcularCostoProducto(p);
-                  const ganancia = c.precioSugerido - c.costoTotal;
                   return (
                     <tr key={p.id}>
                       <td className="bold">{p.nombre}</td>
@@ -1687,10 +1685,6 @@ function Comparador({ state }) {
     const c = calcularCostoProducto(p);
     return { p, c };
   }).filter(Boolean);
-
-  const minCosto = comparados.length ? Math.min(...comparados.map(x => x.c.costoTotal)) : 0;
-  const maxCosto = comparados.length ? Math.max(...comparados.map(x => x.c.costoTotal)) : 0;
-  const maxGanancia = comparados.length ? Math.max(...comparados.map(x => x.c.precioSugerido - x.c.costoTotal)) : 0;
 
   const ROWS = [
     { label: "Categoría", val: x => x.p.categoria },
