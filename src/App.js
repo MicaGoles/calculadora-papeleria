@@ -713,7 +713,7 @@ function useAppState() {
 // MÓDULO: Dashboard
 // ════════════════════════════════════════════════════════════════════════════
 function Dashboard({ state }) {
-  const { insumos, productos, gastosFijos, costoMaquinasMensual, totalGastosFijos, costoHora1, stocksLow } = state;
+  const { insumos, productos, gastosFijos, costoMaquinasMensual, totalGastosFijos, costoHora1, costoHora2, stocksLow } = state;
   const alertasStock = insumos.filter(i => i.stock <= i.stockMin);
 
   return (
